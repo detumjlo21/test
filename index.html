@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08090d">
+  <title>Phoenix Summer Cup Mùa 1</title>
+  <link rel="stylesheet" href="styles.css?v=41">
+  <link rel="stylesheet" href="prizes.css?v=41">
+</head>
+<body>
+  <section id="rulesGate" class="rules-gate" aria-label="Quy định giải đấu">
+    <div class="rules-modal rules-modal-v6">
+      <div id="rulesPosterWrap" class="rules-poster-wrap-v6">
+        <img
+          id="rulesPoster"
+          src="rules-poster.png"
+          alt="Bảng cách thức tính điểm và quy định Phoenix Summer Cup 2026"
+          class="rules-poster-v6"
+          loading="eager"
+        >
+        <div id="rulesLoading" class="rules-loading">Đang tải quy định...</div>
+      </div>
+
+      <p id="scrollHint" class="scroll-hint">
+        Vuốt xuống cuối ảnh để mở xác nhận
+      </p>
+
+      <label id="agreementLabel" class="agreement agreement-disabled">
+        <input id="agreeRules" type="checkbox" disabled>
+        <span>
+          Tôi đã đọc toàn bộ cách thức tính điểm và quy định giải đấu,
+          cam kết thực hiện đúng và chấp nhận quyết định xử lý của ban tổ chức nếu vi phạm.
+        </span>
+      </label>
+
+      <p id="agreementStatus" class="agreement-status" aria-live="polite"></p>
+
+      <button id="continueButton" type="button" disabled>
+        TIẾP TỤC ĐĂNG KÝ
+      </button>
+    </div>
+  </section>
+<div class="background-grid"></div>
+
+  <main class="page">
+    <header class="hero">
+      <img src="assets/logo.png" alt="Logo Phoenix" class="logo">
+      <p class="eyebrow">PHOENIX TOURNAMENT</p>
+      <h1>Phoenix Summer Cup 2026</h1>
+      <p class="subtitle">Mùa 1 • Giải đấu nội bộ quân đoàn</p>
+
+      <section class="countdown-wrap" aria-label="Thời gian đăng ký còn lại">
+        <p class="countdown-title">Đăng ký kết thúc sau</p>
+        <div id="countdown" class="countdown">
+          <div class="time-box"><strong id="days">00</strong><span>Ngày</span></div>
+          <div class="time-box"><strong id="hours">00</strong><span>Giờ</span></div>
+          <div class="time-box"><strong id="minutes">00</strong><span>Phút</span></div>
+          <div class="time-box"><strong id="seconds">00</strong><span>Giây</span></div>
+        </div>
+      <div id="registrationClosedNotice" class="registration-closed-notice" hidden>
+        <strong>🔒 Đăng ký đã đóng</strong>
+        <span>48/48 thành viên đã hoàn tất đăng ký.</span>
+      </div>
+        <p id="closedText" class="closed-text" hidden>ĐĂNG KÝ ĐÃ KẾT THÚC</p>
+      </section>
+
+      <section class="progress-card">
+        <div class="progress-heading">
+          <span>Đã đăng ký</span>
+          <strong><span id="count">0</span>/48</strong>
+        </div>
+        <div class="progress-track" aria-label="Tiến độ đăng ký">
+          <div id="progressBar" class="progress-bar"></div>
+        </div>
+      </section>
+    </header>
+
+    <section id="randomOverlay" class="random-overlay" hidden aria-live="polite">
+      <div class="random-dialog">
+        <p class="eyebrow">ĐANG RANDOM ĐỘI</p>
+        <div class="dice">🎲</div>
+        <strong id="rollingTeam">ĐỘI 1</strong>
+        <p>Hệ thống đang chọn đội cho bạn...</p>
+      </div>
+    </section>
+
+    <section id="resultCard" class="panel result-card" hidden>
+      <p class="eyebrow">ĐĂNG KÝ THÀNH CÔNG</p>
+      <h2 id="resultName"></h2>
+      <p class="muted">Bạn được xếp vào</p>
+      <div class="result-team-wrap">
+        <img id="resultTeamLogo" class="team-logo result-team-logo" alt="Logo đội" hidden>
+        <div id="resultTeam" class="team-result"></div>
+      </div>
+      <p id="resultCode" class="registration-code"></p>
+    </section>
+
+    <section id="joinPanel" class="panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Đăng ký giải đấu</h2>
+        </div>
+        <span class="deadline-chip">Đến 30/07/2026</span>
+      </div>
+
+      <form id="joinForm">
+        <label for="gameName">Tên trong game</label>
+        <input id="gameName" maxlength="40" placeholder="Ví dụ: PHX丶TênGame 禄" required>
+
+        <label for="facebookName">Tên Facebook</label>
+        <input id="facebookName" maxlength="80" placeholder="Ví dụ: Nguyễn Văn A" required>
+
+        <button id="joinBtn" type="submit">THAM GIA & RANDOM ĐỘI</button>
+        <p id="message" class="message" aria-live="polite"></p>
+      </form>
+    </section>
+
+    
+
+    <section class="panel">
+      <h2>Danh sách đội</h2>
+      <p class="muted">12 đội • Mỗi đội tối đa 4 thành viên</p>
+      <div id="teams" class="teams">
+        <p class="muted">Chưa có thành viên.</p>
+      </div>
+    </section>
+
+    
+    <section class="panel tournament-info">
+      <div class="section-row">
+        <div>
+          <h2>Thông báo Ban tổ chức</h2>
+          <p id="publicAnnouncement" class="muted">Chưa có thông báo mới.</p>
+        </div>
+        <span id="registrationStatusBadge" class="status-badge">Đang tải...</span>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-row">
+        <div>
+          <h2>Lịch thi đấu</h2>
+          <p class="muted">4 trận • Chỉ hiển thị map, ngày và giờ</p>
+        </div>
+        <span id="currentMatchBadge" class="badge">Chưa bắt đầu</span>
+      </div>
+      <div id="publicSchedule" class="schedule-grid"></div>
+    </section>
+
+    
+    <section class="panel match-results-cta">
+      <div>
+        <p class="eyebrow">KẾT QUẢ GIẢI ĐẤU</p>
+        <h2>📊 Kết quả từng trận</h2>
+        <p class="muted">Xem thứ hạng, Kill, điểm và MVP của từng trận đấu.</p>
+      </div>
+      <a class="match-results-link" href="results.html">Xem kết quả Trận 1–4</a>
+    </section>
+
+<section class="panel leaderboard-panel">
+      <div class="leaderboard-header">
+        <div>
+          <p class="leaderboard-kicker">PHOENIX SUMMER CUP 2026</p>
+          <h2>Bảng xếp hạng trực tiếp</h2>
+          <p id="leaderboardSubtitle" class="muted">Chưa có kết quả trận đấu.</p>
+        </div>
+        <div class="leaderboard-legend">
+          <span class="rank-up">▲ Tăng hạng</span>
+          <span class="rank-down">▼ Tụt hạng</span>
+          <span class="rank-same">— Giữ hạng</span>
+        </div>
+      </div>
+
+      <div class="leaderboard-table-wrap">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Hạng</th>
+              <th>Đội</th>
+              <th>Trận</th>
+              <th>Kill</th>
+              <th>Booyah</th>
+              <th>Điểm</th>
+              <th>Biến động</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboardBody">
+            <tr><td colspan="7" class="muted">Chưa có dữ liệu.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel mvp-honor-panel mvp-ffws">
+      <div class="mvp-honor-copy">
+        <p class="eyebrow mvp-eyebrow">VINH DANH CÁ NHÂN</p>
+
+        <h2 class="mvp-main-title">
+          <span class="mvp-star">★</span>
+          <span>MVP</span>
+          <b>KILL</b>
+        </h2>
+
+        <p class="muted mvp-description">
+          Tuyển thủ có tổng số hạ gục cao nhất giải đấu.
+        </p>
+
+        <div id="mvpPublicInfo" class="mvp-player-info">
+          <span class="mvp-status">Đang cập nhật MVP...</span>
+        </div>
+      </div>
+
+      <div class="mvp-character-stage">
+        <div class="mvp-background-word">MVP</div>
+        <div class="mvp-premium-grid" aria-hidden="true"></div>
+        <div class="mvp-premium-orbit mvp-orbit-one" aria-hidden="true"></div>
+        <div class="mvp-premium-orbit mvp-orbit-two" aria-hidden="true"></div>
+        <div class="mvp-premium-rings" aria-hidden="true"></div>
+    
+        <div class="mvp-fire-particles" aria-hidden="true">
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+          <i></i><i></i><i></i><i></i><i></i><i></i>
+        </div>
+
+        <div class="mvp-corner mvp-corner-top"></div>
+        <div class="mvp-corner mvp-corner-bottom"></div>
+        <div class="mvp-stage-light"></div>
+        <div class="mvp-stage-platform"></div>
+
+        <img
+          id="mvpCharacterImage"
+          class="mvp-character-image"
+          alt="Nhân vật vinh danh MVP"
+          hidden
+        >
+
+        <div id="mvpCharacterPlaceholder" class="mvp-character-placeholder">
+          NHÂN VẬT<br>VINH DANH
+        </div>
+
+        <img
+          id="mvpTeamLogo"
+          class="mvp-team-logo"
+          alt="Logo đội MVP"
+          hidden
+        >
+      </div>
+    </section>
+
+<section id="championHonorSection" class="panel champion-honor-panel" hidden>
+      <div class="champion-honor-heading">
+        <p class="eyebrow">PHOENIX SUMMER CUP 2026</p>
+        <h2>🏆 NHÀ VÔ ĐỊCH</h2>
+        <p class="muted">Đội dẫn đầu sau khi hoàn tất 4 trận đấu.</p>
+      </div>
+
+      <div class="champion-team-main">
+        <img id="championTeamLogo" class="champion-team-logo" alt="Logo đội vô địch">
+        <div>
+          <span class="champion-label">CHAMPION</span>
+          <h3 id="championTeamName">Đang cập nhật</h3>
+          <p id="championTeamStats" class="muted"></p>
+        </div>
+      </div>
+
+      <div id="championMembers" class="champion-members"></div>
+    </section>
+
+
+    <section class="panel hall-cta-panel">
+      <div>
+        <p class="eyebrow">PHOENIX LEGACY</p>
+        <h2>🏆 Hall of Champions</h2>
+        <p class="muted">Xem lịch sử các đội vô địch và MVP qua từng mùa giải.</p>
+      </div>
+      <a class="hall-cta-button" href="champions.html">Xem lịch sử vô địch</a>
+    </section>
+
+<footer><a href="admin.html">Trang quản trị</a></footer>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js?v=41"></script>
+  <script src="app.js?v=41"></script>
+  <script src="scoreboard.js?v=41"></script>
+  <script src="mvp.js?v=41"></script>
+  <script src="champion.js?v=41"></script>
+
+  <div id="teamDetailModal" class="team-detail-modal" hidden>
+    <div class="team-detail-backdrop" data-close-team-modal></div>
+    <section class="team-detail-dialog" role="dialog" aria-modal="true" aria-labelledby="teamDetailTitle">
+      <button class="team-detail-close" type="button" data-close-team-modal aria-label="Đóng">×</button>
+      <div id="teamDetailContent"></div>
+    </section>
+  </div>
+
+  <script src="team-details.js?v=41"></script>
+  <script src="public-prizes.js?v=41"></script>
+</body>
+</html>
